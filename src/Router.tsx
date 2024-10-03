@@ -1,13 +1,33 @@
 import {
   RouteObject,
   createBrowserRouter,
+  redirect,
 } from 'react-router-dom';
 
 const routes: Array<RouteObject> = [
   {
     id: 'root',
     path: '',
-    element: <h1>Hola mundo</h1>,
+    children: [
+      {
+        id: 'home',
+        path: '',
+        lazy: () => import('./apps/Main/pages/Home')
+          .then(module => ({ Component: module.default, })),
+      },
+      {
+        id: 'hotel',
+        path: 'hotel/:id',
+        // loader: () => {
+        //   const token = localStorage.getItem('current_user');
+        //   if (!token) return redirect('/login');
+
+        //   return true;
+        // },
+        lazy: () => import('./apps/Main/pages/SelectedHotel')
+          .then(module => ({ Component: module.default, })),
+      }
+    ],
   },
   {
     id: 'login',

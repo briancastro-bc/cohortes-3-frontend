@@ -77,7 +77,9 @@ const Signup: FC<SignupProps> = () => {
     });
 
     const response = await request.json();
-    console.log('respuesta del backend', response);
+
+    const token = response.data.accessToken;
+    localStorage.setItem('current_user', token);
   }
 
   return (
