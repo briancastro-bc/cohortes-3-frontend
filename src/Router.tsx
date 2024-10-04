@@ -1,18 +1,26 @@
 import {
   RouteObject,
   createBrowserRouter,
-  redirect,
 } from 'react-router-dom';
+
+import Root from './Root';
 
 const routes: Array<RouteObject> = [
   {
     id: 'root',
     path: '',
+    element: <Root/>,
     children: [
       {
         id: 'home',
         path: '',
         lazy: () => import('./apps/Main/pages/Home')
+          .then(module => ({ Component: module.default, })),
+      },
+      {
+        id: 'searchResults',
+        path: 'search',
+        lazy: () => import('./apps/Main/pages/Results')
           .then(module => ({ Component: module.default, })),
       },
       {
@@ -25,6 +33,12 @@ const routes: Array<RouteObject> = [
         //   return true;
         // },
         lazy: () => import('./apps/Main/pages/SelectedHotel')
+          .then(module => ({ Component: module.default, })),
+      },
+      {
+        id: 'reservation',
+        path: 'hotel/:hotelId/reservation/:roomId',
+        lazy: () => import('./apps/Main/pages/Reservation')
           .then(module => ({ Component: module.default, })),
       }
     ],

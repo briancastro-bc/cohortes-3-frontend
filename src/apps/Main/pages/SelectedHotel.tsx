@@ -4,13 +4,16 @@ import {
   useEffect,
   useCallback,
 } from 'react';
-import { useParams, } from 'react-router-dom';
+import { useNavigate, useParams, } from 'react-router-dom';
 
 import { Hotel, } from '../../Shared/domain/Hotel';
+import Button from '../../Shared/Components/Button';
 
 type SelectedHotelProps = object;
 
 const SelectedHotel: FC<SelectedHotelProps> = () => {
+  const navigate = useNavigate();
+
   const { 
     id,
   } = useParams();
@@ -62,6 +65,10 @@ const SelectedHotel: FC<SelectedHotelProps> = () => {
                       <span>Camas: {room?.bedsQuantity}</span>
                       <span>Capacidad: {room?.capacity}</span>
                     </div>
+                    <Button
+                      onClick={() => navigate(`reservation/${room?.id}`)}>
+                      Reservar
+                    </Button>
                   </div>
                 ))}
               </div>
